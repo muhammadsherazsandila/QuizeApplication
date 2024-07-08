@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quize App</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            font-family: sans-serif;
+            box-sizing: border-box;
+        }
+        body{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #1c1c1c;
+            color: white;
+            transition: 1s;
+        }
+        .li{
+            font-size: 22px;
+            width: 150px;
+            margin: 15px 0px;
+            padding: 10px;
+            border: none;
+            background-color: #2d2d2d;
+            color: white;
+            cursor: pointer;
+            border-radius: 5px;
+            text-align: center;
+            animation: containerAni 1s ease-in-out;
+            border-bottom: 1px solid orange;
+            border-right: 1px solid orange;
+        }
+        #container{
+            height: 400px;
+            width: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-direction: column;
+            text-align: center;
+            animation: containerAni 1s ease-in-out;
+        }
+        @keyframes containerAni {
+            from{transform: scale(0);}
+            to{transform: scale(1);}
+        }
+        #quesSection{
+            text-align: left;
+        }
+        #listContainer{
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        h2{
+            font-size: 30px;
+            padding: 5px;
+        }
+        h3{
+            font-size: 25px;
+            color: aqua;
+        }
+        #buttons{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 60%;
+        }
+        .btn{
+            width: 100px;
+            background-color:aqua;
+            font-size: 20px;
+            border: none;
+            border-radius: 5px;
+            text-align: center;
+            outline: none;
+            padding: 8px;
+            margin: 0px 10px;
+            cursor: pointer;
+        }
+        #questionAndCheck{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+        #check{
+            font-size: 22px;
+        }
+        #questionAndNo{
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-left: 20px;
+            animation: containerAni 1s ease-in-out;
+            transition: 1s;
+
+        }
+        #questionAndNo :nth-child(4){
+            color: white;
+        }
+        #heading{
+            display: flex;
+            align-items: center;
+            border-bottom: 2px solid orange;
+        }
+        #colorHeading{
+            margin-right: 5px;
+            color: aqua;
+        }
+        #resultContainer{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-evenly;
+            height: 100px;
+            width: 100%;
+        }
+        .withoutColorMarks{
+            font-size: 20px;
+            color: white;
+        }
+        #resultContainer h4{
+            margin: 0px 4px;
+        }
+        #resultContainer span{
+            font-style: italic;
+            color: orange;
+            font-size: 20px;
+        }
+        .animateButtonColor{
+            transition: 1s;
+        }
+        .colorMarks{
+            color: aqua;
+            font-size: 20px;
+        }
+        .upperAndLowerResult{
+            display: flex;
+            align-items: center;
+        }
+        #programer{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 180px;
+            margin-top: 10px;
+            animation: programerAni 3s linear infinite forwards alternate-reverse;
+            transition: 1s;
+        }
+        @keyframes programerAni {
+            0%{
+                transform: rotate(-15deg);
+            }
+            100%{
+                transform: rotate(15deg);
+            }
+
+        }
+        #colorNameOfProgramer{
+            font-size: 20px;
+            color: orange;
+        }
+        #withoutColorName{
+            font-size: 20px;
+            color: aqua;
+        }
+        #question{
+            font-size: 20px;
+            font-weight: 100;
+        }
+        #question{
+            animation: containerAni 1s ease-in-out; 
+        }
+        #button{
+            font-size: 21px;
+            padding: 10px;
+            width: 150px;
+            background-color: aqua;
+            color: black;
+            border: none;
+            outline: none;
+            border-radius: 5px;
+            margin: 10px 0px;
+            transition: 1s;
+            display: none;
+            animation: containerAni 1s ease-in-out;
+            cursor: pointer;
+        }
+        .decisionStyling{
+            font-size: 20px;
+            color: white;
+            animation: containerAni 1s ease-in-out;
+        }
+        #scoreView{
+            font-size: 20px;
+            color: white;
+            animation: containerAni 1s ease-in-out;
+        }
+        #decisionContainer{
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 40px;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <div id="heading">
+            <h2 id="colorHeading">Questions<h2>Accademy</h2></h2>
+        </div>
+        <div id="resultContainer">
+            <div id="upperResult" class="upperAndLowerResult">
+                <h4 class="colorMarks">Total<h4 class="withoutColorMarks">Marks: </h4></h4><span id="tMarks"></span>
+            </div>
+            <div id="lowerResult" class="upperAndLowerResult">
+                <h4 class="colorMarks">Obtained<h4 class="withoutColorMarks">Marks: </h4></h4><span id="oMarks">0</span>
+            </div>
+        </div>
+        <div id="quesSection">
+            <div id="questionAndCheck">
+                <div id="questionAndNo">
+                    <h3>Q.</h3>
+                    <h3 id="questionNo" class="animateButtonColor"></h3>
+                    <h3>:</h3>
+                    <h3 id="question" class="animateButtonColor"></h3>
+                </div>
+                <span id="check" class="animateButtonColor"></span>
+            </div>
+            <ul id="listContainer"></ul>
+        </div>
+        <Button id="button">Submit</Button>
+        <div id="programer">
+            <span id="colorNameOfProgramer">Sandila</span>
+            <span id="withoutColorName">Programing</span>
+        </div>
+    </div>
+    <div id="decisionContainer">
+        <div id="decision"></div>
+        <div id="scoreView"></div>
+    </div>
+</body>
+    <script>
+        let quesSection = document.getElementById('quesSection')
+        let question = document.getElementById('question')
+        let listContainer = document.getElementById('listContainer')
+        let result = document.getElementById('result')
+        let check = document.getElementById('check')
+        let questionNo = document.getElementById('questionNo')
+        let tMarks = document.getElementById('tMarks')
+        let oMarks = document.getElementById('oMarks')
+        let button = document.getElementById('button')
+        let container = document.getElementById('container')
+        let decision = document.getElementById('decision')
+        let questionNoValue = 1
+        let currentQuestionIndex = 0
+        let score = 0
+        let questionArray = [
+            {
+                questionStatement:'Which Islamic country is most powerful in the world?',
+                options:['Saudi','Pakistan','Afghanistan','U.A.E'],
+                answer :'Pakistan'
+
+            },
+            {
+                questionStatement:'The capital of France is...?',
+                options:['Paris','Islamabad','Toronto','New York'],
+                answer :'Paris'
+
+            },
+            {
+            questionStatement:`In Solar system Earth's number is...?`,
+                options:['1','8','3','4'],
+                answer :'3'
+
+            },
+            {
+                questionStatement:'What is greatest river in the world?',
+                options:['Nile','Indus','Ravi','Fraat'],
+                answer :'Nile'
+
+            },
+            {
+                questionStatement:'The largest country in the world?',
+                options:['Swizerland','U.S.A','China','Russia'],
+                answer :'Russia'
+
+            },
+            {
+                questionStatement:'What is main religion of Isreal?',
+                options:['Islam','Jewish','Christian','Hindus'],
+                answer :'Jewish'
+
+            },
+            {
+                questionStatement:'Total number of countries in the world?',
+                options:['100','137','200','195'],
+                answer :'195'
+
+            },
+            {
+                questionStatement:'Where did the game of Cricket originate?',
+                options:['England','Pakistan','Australia','India'],
+                answer :'England'
+
+            },
+            {
+                questionStatement:'Who was first man on the Moon?',
+                options:['Aiesec Newton','Neil Armstrong','Neil Boher','J.J Thomsan'],
+                answer :'Neil Armstrong'
+
+            },
+            {
+                questionStatement:'The Father of Computer?',
+                options:['Leibniz','Charles Babbage','Newton','Aurhter Kaley'],
+                answer :'Charles Babbage'
+
+            }
+
+        ]
+
+        function loadPage(){
+            let questionWrap = questionArray[currentQuestionIndex].questionStatement
+            question.textContent = questionWrap
+            listContainer.innerHTML = ''
+            check.innerHTML = ''
+            questionNo.textContent = questionNoValue
+            tMarks.textContent = questionArray.length
+            let optionss = questionArray[currentQuestionIndex].options
+            optionss.forEach(e=>{
+                let li = document.createElement('Button')
+                li.textContent = e
+                li.classList.toggle('li')
+                li.addEventListener('click',()=>{
+                    let ans = questionArray[currentQuestionIndex].answer
+                    li.classList.add('animateButtonColor')
+                    if(e === ans){
+                        li.style.background = 'green'
+                        check.textContent = 'Correct'
+                        check.style.color = 'green'
+                        score++;
+                        oMarks.textContent = score
+
+                    }else{
+                        oMarks.textContent = score
+                        li.style.background = 'red'
+                        check.textContent = 'Wrong'
+                        check.style.color = 'red'
+                    }
+                    checkAnswer()
+                    setTimeout(() => {
+                        goNext()
+                    }, 1000);
+                })
+                listContainer.appendChild(li)
+            })
+        }
+
+        function checkAnswer(){
+            let buttonss = document.querySelectorAll('.li')
+            for(let a = 0; a<buttonss.length;a++){
+                buttonss[a].disabled = true
+            }
+        }
+
+        function goNext(){
+            if(currentQuestionIndex===questionArray.length-1){
+                button.style.display = 'block'
+            }else{
+                currentQuestionIndex++;
+                questionNoValue++;
+                loadPage()
+            }
+        }
+        function goPrev(){
+            if(currentQuestionIndex === 0){
+                currentQuestionIndex = 0
+                loadPage()
+            }else{
+                currentQuestionIndex--;
+                questionNoValue--;
+                loadPage()
+            }
+        }
+
+        function failPass(){
+            if(oMarks.innerHTML>=tMarks.innerHTML-3){
+                decision.textContent = 'Congratulation you have passed!'
+            }else{
+                decision.textContent = 'Sorry! try next time.'
+            }
+        }
+        let scoreView = document.getElementById('scoreView')
+        let submitButtonClick = button.addEventListener('click',()=>{
+            container.style.display = 'none'
+            decision.classList.toggle('decisionStyling')
+            failPass()
+            scoreView.textContent = `You obtained ${oMarks.innerHTML} marks out of ${tMarks.innerHTML}.`
+
+        })
+
+        loadPage()
+    </script>
+    <script src="new.js"></script>
+</html>
